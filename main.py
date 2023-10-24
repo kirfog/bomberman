@@ -13,7 +13,7 @@ pygame.font.init()
 window = pygame.display.set_mode((WIDTH * WALL_WIDTH, HEIGHT * WALL_HEIGHT))
 pygame.display.set_caption("BOMBERMAN")
 font = pygame.font.Font(None, 48)
-space = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'back.png')), (WIDTH * WALL_WIDTH, HEIGHT * WALL_HEIGHT))
+space = pygame.transform.scale(pygame.image.load(os.path.join('assets', 'back.png')), (WIDTH * WALL_WIDTH, HEIGHT * WALL_HEIGHT))
 cells = numpy.random.randint(2, size = (WIDTH, HEIGHT))
 
 walls = pygame.sprite.Group()
@@ -28,7 +28,7 @@ class Wall(pygame.sprite.Sprite):
         self.x = x
         self.y = y
         self.rect = pygame.Rect(x * WALL_WIDTH, y * WALL_HEIGHT, WALL_WIDTH, WALL_HEIGHT)
-        self.image =  pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'wall.png')), (WALL_WIDTH, WALL_HEIGHT))
+        self.image =  pygame.transform.scale(pygame.image.load(os.path.join('assets', 'wall.png')), (WALL_WIDTH, WALL_HEIGHT))
         walls.add(self)
         
     def explose(self):
@@ -46,13 +46,13 @@ class Goods(pygame.sprite.Sprite):
         self.rect = pygame.Rect((x + 0.25) * WALL_WIDTH, (y + 0.25) * WALL_HEIGHT, WALL_WIDTH / 2, WALL_HEIGHT / 2)
         ver = random.random()
         if  ver < 0.20:
-            self.image = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'hart.png')), (WALL_WIDTH / 2, WALL_HEIGHT / 2))
+            self.image = pygame.transform.scale(pygame.image.load(os.path.join('assets', 'hart.png')), (WALL_WIDTH / 2, WALL_HEIGHT / 2))
             self.kind = 'life'
         elif ver > 0.60:
-            self.image = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'goods.png')), (WALL_WIDTH / 2, WALL_HEIGHT / 2))
+            self.image = pygame.transform.scale(pygame.image.load(os.path.join('assets', 'goods.png')), (WALL_WIDTH / 2, WALL_HEIGHT / 2))
             self.kind = 'force'
         elif 0.20 <= ver <= 0.60:
-            self.image = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bombplus.png')), (WALL_WIDTH / 2, WALL_HEIGHT / 2))
+            self.image = pygame.transform.scale(pygame.image.load(os.path.join('assets', 'bombplus.png')), (WALL_WIDTH / 2, WALL_HEIGHT / 2))
             self.kind = 'bomb'
         goods.add(self)
     def explose(self):
@@ -91,7 +91,7 @@ class Bomberman(pygame.sprite.Sprite):
         self.y = y
         self.id = id
         self.rect = pygame.Rect(self.x * WALL_WIDTH, self.y * WALL_HEIGHT, self.width * 0.8, self.height * 0.8)
-        self.image = pygame.transform.scale(pygame.image.load(os.path.join('Assets', "bomberman" + str(id) + "right.png")), (self.width, self.height))
+        self.image = pygame.transform.scale(pygame.image.load(os.path.join('assets', "bomberman" + str(id) + "right.png")), (self.width, self.height))
         self.left = left
         self.right = right
         self.up = up
@@ -112,16 +112,16 @@ class Bomberman(pygame.sprite.Sprite):
         self.y =  self.rect.center[1] // WALL_HEIGHT
         if dx > 0:
             self.rect.x += dx
-            self.image = pygame.transform.scale(pygame.image.load(os.path.join('Assets', "bomberman" + str(self.id) + "right.png")), (self.width, self.height))
+            self.image = pygame.transform.scale(pygame.image.load(os.path.join('assets', "bomberman" + str(self.id) + "right.png")), (self.width, self.height))
         if dx < 0:
             self.rect.x += dx
-            self.image = pygame.transform.scale(pygame.image.load(os.path.join('Assets', "bomberman" + str(self.id) + "left.png")), (self.width, self.height))
+            self.image = pygame.transform.scale(pygame.image.load(os.path.join('assets', "bomberman" + str(self.id) + "left.png")), (self.width, self.height))
         if dy > 0:
             self.rect.y += dy
-            self.image = pygame.transform.scale(pygame.image.load(os.path.join('Assets', "bomberman" + str(self.id) + "down.png")), (self.width, self.height))
+            self.image = pygame.transform.scale(pygame.image.load(os.path.join('assets', "bomberman" + str(self.id) + "down.png")), (self.width, self.height))
         if dy < 0:
             self.rect.y += dy
-            self.image = pygame.transform.scale(pygame.image.load(os.path.join('Assets', "bomberman" + str(self.id) + "up.png")), (self.width, self.height))
+            self.image = pygame.transform.scale(pygame.image.load(os.path.join('assets', "bomberman" + str(self.id) + "up.png")), (self.width, self.height))
         for wall in walls:
             if self.rect.colliderect(wall.rect):
                 if dx > 0:
@@ -190,7 +190,7 @@ class Bomb(pygame.sprite.Sprite):
         self.y = y
         self.bomberman_id = bomberman_id
         self.rect = pygame.Rect((x + 0.25) * WALL_WIDTH, (y + 0.25) * WALL_HEIGHT, WALL_WIDTH / 2, WALL_HEIGHT / 2)
-        self.image = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bomb.png')), (WALL_WIDTH / 2, WALL_HEIGHT / 2))
+        self.image = pygame.transform.scale(pygame.image.load(os.path.join('assets', 'bomb.png')), (WALL_WIDTH / 2, WALL_HEIGHT / 2))
         self.bomb_time = bomb_time
         self.bomb_force = bomb_force
         self.new = 1
@@ -198,7 +198,7 @@ class Bomb(pygame.sprite.Sprite):
             if bomberman.id == self.bomberman_id:
                 bomberman.mbombs -= 1
                 bomberman.updatescores()
-        self.sound = pygame.mixer.Sound(os.path.join('Assets', 'bomb.wav'))
+        self.sound = pygame.mixer.Sound(os.path.join('assets', 'bomb.wav'))
         exist = False
         for bomb in bombs:
             if bomb.rect.x == self.rect.x and bomb.rect.y == self.rect.y:
@@ -298,7 +298,7 @@ def main():
         for bomb in bombs:
             if curent_time - bomb.start_time > bomb.bomb_time - 200:
                 bomb.rect = pygame.Rect(bomb.x * WALL_WIDTH, bomb.y * WALL_HEIGHT, WALL_WIDTH, WALL_HEIGHT)
-                bomb.image = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'bomb.png')), (WALL_WIDTH, WALL_HEIGHT))
+                bomb.image = pygame.transform.scale(pygame.image.load(os.path.join('assets', 'bomb.png')), (WALL_WIDTH, WALL_HEIGHT))
                 if curent_time - bomb.start_time > bomb.bomb_time:
                     bomb.explose()
 
